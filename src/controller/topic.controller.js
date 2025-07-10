@@ -38,10 +38,8 @@ exports.store = async (req, res) => {
 exports.update = async (req, res) => {
     const {id} = req.params;
     const data = req.body;
-    console.log(id, "data:", data);
     
     const newTopic = await topicService.update(id, data);
-    console.log("New Topic:",newTopic)
     response.success(res, 200, newTopic)
 }
 
