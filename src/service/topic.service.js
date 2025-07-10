@@ -2,13 +2,15 @@
 const {Topic} = require("@/models");
 
 exports.getAll = async () => {
-    
-    return await Topic.findAll();
+    const topics = await Topic.findAll();
+    return topics
 }
 
 exports.getById = async (id) => {
-    const comment = await Topic.findByPk(id)
-    return comment
+    const topic = await Topic.findByPk(id)
+    console.log("Service", topic);
+    
+    return topic
 }
 
 exports.create = async (data)    => {
@@ -19,10 +21,10 @@ exports.create = async (data)    => {
 }
 
 exports.update = async (id, data) => {
-    const comment = await Topic.findByPk(id);
+    const topic = await Topic.findByPk(id);
     
-    if(!comment) return null
-    const newTopic = await comment.update(data)
+    if(!topic) return null
+    const newTopic = await topic.update(data)
     return newTopic
 }
 

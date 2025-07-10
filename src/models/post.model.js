@@ -48,7 +48,7 @@ module.exports = (sequelize, DataTypes) => {
     // Post belongsTo Topic
     Post.belongsTo(models.Topic, {
       foreignKey: 'topicId',
-      as: 'topic'
+      as: 'topics'
     });
 
     // Post hasMany Comments

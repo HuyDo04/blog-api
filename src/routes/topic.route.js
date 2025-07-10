@@ -9,7 +9,7 @@ router.get("/", topicController.index);
 // get posts thuộc topic
 router.get("/:slug",topicController.getBySlug)
 
-router.get("/:id", topicController.show);
+router.get("/id/:id", topicController.show);
 
 router.post ("/:id", topicController.store)
 

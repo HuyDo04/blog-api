@@ -9,19 +9,26 @@ exports.index = async (req, res) => {
 
 exports.show = async (req, res) => {
     const {id} = req.params;
+    console.log("Show:", id);
+    
     const topic = await topicService.getById(id);
     response.success(res, 200, topic)
 }
 
 exports.getBySlug = async (req, res) => {
-    const {slug} = req.params;
-    
-    const topic = await topicPostsService.getBySlug(slug);
+    try {
+        const { slug } = req.params;
+        const topic = await topicPostsService.getBySlug(slug);
+        if (!topic) {
+            return response.error(res, 404, "Post not found in any topic");
+        }
 
-    if(!topic) return response.error(res, 404, "Notfound")
-    
-    return response.success(res,200,topic)
-}
+        return response.success(res, 200, topic);
+    } catch (error) {
+        return response.error(res, 500, "Internal server error");
+    }
+};
+
 
 exports.getAllTopicPost = async (req, res) => {
     const data = await topicPostsService.getAllTopicPost();
