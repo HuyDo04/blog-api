@@ -10,6 +10,10 @@ const handlePagination = require("@/middleware/handlePagination");
 const handleResponse = require("@/middleware/handleResponse")
 app.use(express.json());
 
+app.use(handleResponse)
+app.use(cors())
+app.use(handlePagination)
+
 async function checkConnectDB(req, res) {
   try {
     await sequelize.authenticate();
@@ -26,14 +30,7 @@ async function checkConnectDB(req, res) {
     });
   }
 }
-
 app.get("/check-db", checkConnectDB);
-
-app.use(cors())
-
-app.use(handleResponse)
-
-app.use(handlePagination)
 
 app.use("/api/v1", router)
 
