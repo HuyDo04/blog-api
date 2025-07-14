@@ -10,27 +10,22 @@ const handlePagination = require("@/middleware/handlePagination");
 const handleResponse = require("@/middleware/handleResponse")
 app.use(express.json());
 
-app.use(handleResponse)
-app.use(cors())
-app.use(handlePagination)
-
-async function checkConnectDB(req, res) {
-  try {
-    await sequelize.authenticate();
-    res.success(200,{
-      success: true,
-      message: "Connect DB successfully"
-    });
-  } catch (error) {
-    res.error(500, {
-      success: false,
-      name: error.name,
-      message: error.message,
-      stack: error.stack
-    });
-  }
+async function checkConnectDB() {
+    try {
+      await sequelize.authenticate();
+      console.log("Connect DB successfully");
+    } catch (error) {
+      console.log("Connect DB fail");
+    }
 }
-app.get("/check-db", checkConnectDB);
+
+checkConnectDB();
+
+app.use(cors())
+
+app.use(handleResponse)
+
+app.use(handlePagination)
 
 app.use("/api/v1", router)
 
